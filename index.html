@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+<head>
+  <meta charset="utf-8">
+  <title>90's Cartoons</title>
+  <link href='./style.css' rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="./cartoons.js"></script>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="title">
+        90's Cartoons
+      </div>
+    </div>
+  </header>
+  <main ng-controller='cartoons'>
+    <div class="container">
+      <input type='search' ng-model='search.name'>
+      <select ng-model="model.id" class="sort" name="sort">
+        <option ng-selected="order('score')" value="score">score</option>
+        <option ng-selected="order('title')" value="title">title</option>
+      </select>
+      <span>⬆</span>
+      <span>⬇</span>
+      <div ng-repeat='cartoon in cartoons | orderBy:predicate:reverse'>
+        {{cartoon.name}}
+        <div class="image">
+          <img alt="{{cartoon.name}}" title="{{cartoon.name}}" src="{{cartoon.image}}" />
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="container"></footer>
+</body>
+</html>
