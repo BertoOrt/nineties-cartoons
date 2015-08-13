@@ -3,10 +3,10 @@ var app = angular.module('app', []);
 app.controller('cartoons', [ '$scope', function ($scope) {
   $scope.cartoons = cartoons;
   $scope.reverse = true;
-  $scope.predicate = 'score';
-  $scope.order = function (predicate) {
-    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-    $scope.predicate = predicate;
+  $scope.sort = 'score';
+  $scope.order = function (sort) {
+    $scope.reverse = ($scope.predicate === sort) ? !$scope.reverse : false;
+    $scope.sort = sort;
   }
 }])
 

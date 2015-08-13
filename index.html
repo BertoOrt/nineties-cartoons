@@ -19,14 +19,15 @@
   <main ng-controller='cartoons'>
     <div class="container">
       <input type='search' ng-model='search.name'>
-      <select ng-model="model.id" class="sort" name="sort">
-        <option ng-selected="order('score')" value="score">score</option>
-        <option ng-selected="order('title')" value="title">title</option>
+      <select ng-model="sort" class="sort" name="sort">
+        <option value="score" selected>score</option>
+        <option value="name">name</option>
       </select>
-      <span>⬆</span>
-      <span>⬇</span>
-      <div ng-repeat='cartoon in cartoons | orderBy:predicate:reverse'>
+      <span ng-hide='!reverse' class='arrow' ng-click='reverse = fasle'>⬆</span>
+      <span ng-hide='reverse' ng-click='reverse = true'>⬇</span>
+      <div ng-repeat='cartoon in cartoons | orderBy:sort:reverse | filter:search'>
         {{cartoon.name}}
+        {{cartoon.score}}
         <div class="image">
           <img alt="{{cartoon.name}}" title="{{cartoon.name}}" src="{{cartoon.image}}" />
         </div>
