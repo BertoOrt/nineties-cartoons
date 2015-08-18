@@ -128,3 +128,6 @@ div.commentBox .author {
 #url {
   background: white;
 }
+.ng-hide {
+  display:none!important;
+}

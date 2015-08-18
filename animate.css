@@ -1,0 +1,33 @@
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+}
+
+.animate-repeat.ng-enter,
+.animate-repeat.ng-move {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity: 1;
+  height: 120px;
+}
+
+.animate-repeat.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+
+.animate-repeat.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
