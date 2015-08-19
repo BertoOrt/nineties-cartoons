@@ -4,11 +4,19 @@ app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/home.html',
-        controller: 'HomeController'
+        controller: 'cartoons'
       })
       .when('/about', {
         templateUrl: 'partials/about.html',
         controller: 'about'
       })
-      .otherwise({redirectTo: 'index.html'});
+      .when('/math/:factor/:number/:otherNumber', {
+        templateUrl: 'partials/math.html',
+        controller: 'math'
+      })
+      .when('/math/:factor', {
+        templateUrl: 'partials/math.html',
+        controller: 'math'
+      })
+      .otherwise({redirectTo: '/'});
 });

@@ -49,10 +49,21 @@ app.controller('cartoons', [ '$scope', function ($scope) {
   }
 }])
 
-app.controller('HomeController', function($scope){
-  $scope.message = "Welcome!"
-});
+app.controller('about', ['$scope', function($scope) {
+  $scope.message = 'to be completed'
+}]);
 
-app.controller('DogsController', function($scope){
-    $scope.message = "Woof Woof!"
-});
+app.controller('math', ['$scope','$routeParams', function($scope, $routeParams) {
+  var param1 = $routeParams;
+  $scope.message = param1;
+  $scope.factor = param1.factor;
+  $scope.number = param1.number;
+  $scope.otherNumber = param1.otherNumber;
+  if ($scope.factor === 'add') {
+    $scope.result = parseInt(param1.number) + parseInt(param1.otherNumber)
+  } else if ($scope.factor === "multiply") {
+    $scope.result = parseInt(param1.number) * parseInt(param1.otherNumber)
+  } else {
+    $scope.result = "something something, I don't want to do math"
+  }
+}]);

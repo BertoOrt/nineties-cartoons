@@ -1,3 +1,128 @@
-<p>This is the home template</p>
-
-<p>Message: {{message}}</p>
+<header>
+  <div>
+    <nav class="form-inline navbar navbar-default">
+      <div class="container-header">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="#//">
+              <img class='logo' src="./../assets/toonsLogo.png" width="150px"alt="toons"/>
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <a class="navbar-brand" href="/#about">About</a>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" ng-model='search.name' class="form-control"  placeholder="Search">
+              </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a ng-click='order("score")' href="#">score</a></li>
+                  <li><a ng-click='order("name")' href="#">name</a></li>
+                </ul>
+              </li>
+            </ul>
+            <span ng-hide='!reverse' class='arrow glyphicon glyphicon-triangle-top navbar-form navbar-right' ng-click='reverse = fasle'></span>
+            <span ng-hide='reverse' class='arrow glyphicon glyphicon-triangle-bottom navbar-form navbar-right ' ng-click='reverse = true'></span>
+            <div class="addCartoon navbar-form navbar-right" ng-click="formShow()">
+              <span class='glyphicon glyphicon-plus navbar-form'></span>
+              Add cartoon
+            </div>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <div class="addCartoon well" ng-hide='cartoonFormShow == false'>
+      <form name="cartoonForm" novalidate>
+        <div ng-class="{ 'has-error' : cartoonForm.title.$invalid && !cartoonForm.title.$pristine }">
+          <label for="title">Title</label>
+          <input id="title" type="text" class="form-control" ng-model='title' name="title" required>
+          <p ng-show="cartoonForm.title.$invalid && !cartoonForm.title.$pristine" class='control-label'>
+            title is required
+          </p>
+        </div>
+        <label for="url">Image Url</label>
+        <input id="url" type="url" class="form-control" ng-model='url' name="url" required>
+        <div ng-class="{ 'has-error' : cartoonForm.description.$invalid && cartoonForm.description.$touched }">
+          <label for="description">Description</label>
+          <textarea id='description' class="form-control" ng-minlength="10" name="description" ng-model='description'rows="8" cols="40" required></textarea>
+          <p ng-show="cartoonForm.description.$error.minlength && cartoonForm.description.$touched" class='control-label'>
+            Description is too short
+          </p>
+        </div>
+        <input type="submit" class='btn btn-primary' ng-disabled="cartoonForm.$invalid" ng-click='submitCartoon(); clearForm("cartoonForm"); formShow()'>
+      </form>
+    </div>
+    <div class='cartoons well' ng-repeat='cartoon in cartoons | orderBy:sort:reverse | filter:search'>
+      <div class="cartoon">
+        <div class="image col-md-4">
+          <img alt="{{cartoon.name}}" title="{{cartoon.name}}" src={{cartoon.image}} />
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="title">
+              {{cartoon.name}}
+            </div>
+            <div class="author">
+              by {{cartoon.author}}
+            </div>
+          </div>
+          <div class="row description">
+            {{cartoon.description}}
+          </div>
+          <div class="row">
+            <div class="votes">
+              <div class="vote-count" ng-class='{"green": cartoon.score > 0 , "red": cartoon.score < 0 }'> {{cartoon.score}} </div>
+              <span class='glyphicon glyphicon-triangle-top vote' ng-click='upScore()'></span>
+              <span class='glyphicon glyphicon-triangle-bottom vote' ng-click='downScore()'></span>
+            </div>
+            |
+            <div class="comment-section">
+              <div class="comment-count" ng-click='show("comment")'>
+                <span class='glyphicon glyphicon-comment'></span>
+                <ng-pluralize count="cartoon.comments.length"
+                when="{'0': ' No comments',
+                '1': '1 comment',
+                'other': '{} comments'}">
+              </ng-pluralize>
+            </div>
+          </div>
+          |
+          <div class="addComment" ng-click='show("form")'>
+            <span class='glyphicon glyphicon-plus'></span>
+            Add comment
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-show='cartoon.form' class="addCommentForm">
+      <form name='commentForm' class='form-inline' ng-submit="submitForm(newComment.$invalid)">
+        <input type="text" name='newComment' class="form-control" ng-model='newComment' required>
+        <input type="submit" ng-disabled="commentForm.newComment.$invalid" ng-click='show("form"); show("comment"); post(newComment); newComment = ""' class="btn btn-primary" value="comment">
+      </form>
+    </div>
+    <ul>
+      <div class="comments" ng-show='cartoon.comment' ng-repeat='comment in cartoon.comments'>
+        <div class="commentBox">
+          <div class='author'>
+            {{comment.author}}:
+          </div>
+          <span>&nbsp;{{comment.text}}</span>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>
+</main>
