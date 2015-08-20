@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ngAnimate', 'ngRoute']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/home.html',
@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
       .when('/about', {
         templateUrl: 'partials/about.html',
         controller: 'about'
+      })
+      .when('/find', {
+        templateUrl: 'partials/find.html',
+        controller: 'find'
       })
       .when('/math/:factor/:number/:otherNumber', {
         templateUrl: 'partials/math.html',
@@ -19,4 +23,5 @@ app.config(function($routeProvider) {
         controller: 'math'
       })
       .otherwise({redirectTo: '/'});
+      $locationProvider.html5Mode(true);
 });

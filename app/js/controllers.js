@@ -49,8 +49,43 @@ app.controller('cartoons', [ '$scope', function ($scope) {
   }
 }])
 
+app.filter('shuffle', function () {
+  return function (input) {
+    for (var i = input.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = input[i];
+      input[i] = input[j];
+      input[j] = temp;
+    }
+    return input;
+  }
+})
+
 app.controller('about', ['$scope', function($scope) {
-  $scope.message = 'to be completed'
+  $scope.message = 'to be completed';
+  $scope.array = [1,2,3,4,5];
+}]);
+
+app.controller('find', ['$scope', '$http', function($scope, $http) {
+  $scope.findShow = function (search) {
+    $http.get('http://api.themoviedb.org/3/search/tv?api_key=1ba088fb7619598dd41dd19962963592&query='+ search).then(function(data){
+      var cartoons = data.data.results;
+      var array = cartoons.filter(function (cartoon) {
+        if (cartoon.first_air_date) {
+          var year = cartoon.first_air_date.substring(0,4);
+          if (parseInt(year) < 2000 && parseInt(year) > 1989) {
+            cartoon.year = year;
+            return cartoon
+          } else if (parseInt(year) < 2000) {
+            cartoon.year = year;
+            cartoon.warning = "Note: not true 90s, but may have been on TV";
+            return cartoon;
+          }
+        }
+      })
+      $scope.cartoons = array;
+    });
+  }
 }]);
 
 app.controller('math', ['$scope','$routeParams', function($scope, $routeParams) {

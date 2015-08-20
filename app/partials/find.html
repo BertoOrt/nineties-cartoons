@@ -17,7 +17,6 @@
           <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <a class="navbar-brand" href="/about">About</a>
             <a class="navbar-brand" href="/find">Find</a>
-            <!-- <a class="navbar-brand navbar-right" href="/">Browse</a> -->
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </div>
@@ -26,8 +25,34 @@
 </header>
 <main>
   <div class="container">
-    <div class="well about">
-      <p>{{message | uppercase}}</p>
+    <div class="search">
+      <form class='form-inline'name='searchForm'>
+        <input class='form-control'type="text" ng-model='search' placeholder="tv show" required>
+        <input class='btn btn-primary' type="submit" ng-disabled="searchForm.$invalid" ng-click='findShow(search)' value="Find!">
+      </form>
+      <div class="results cartoons well" ng-repeat='cartoon in cartoons'>
+        <div class="col-md-4">
+          <div id='poster'>
+            <img ng-src="https://image.tmdb.org/t/p/w92/{{cartoon.poster_path}}" alt="missing poster" />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="title">
+              {{cartoon.original_name}} ({{cartoon.year}})
+            </div>
+          </div>
+          <div class="warning">
+            {{cartoon.warning}}
+          </div>
+          <div class="description">
+            {{cartoon.overview}}
+          </div>
+        </div>
+      </div>
+      <div class='warning' ng-if="cartoons.length < 1">
+        <h1>No results found</h1>
+      </div>
     </div>
   </div>
 </main>
