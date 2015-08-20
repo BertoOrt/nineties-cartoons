@@ -1,19 +1,15 @@
 .cartoons.ng-enter,
 .cartoons.ng-move {
-  -webkit-animation: 0.3s bounceInRight;
   animation: 0.3s bounceInRight;
 }
 .cartoons.ng-leave {
-  -webkit-animation: 0.3s fadeOut;
   animation: 0.3s fadeOut;
 }
 
 .ng-hide-add:not(.arrow) {
-  -webkit-animation:0.1s fadeOut ease;
   animation:0.1s fadeOut ease;
 }
 
 .ng-hide-remove {
-  -webkit-animation:0.2s fadeIn ease;
   animation:0.2s fadeIn ease;
 }

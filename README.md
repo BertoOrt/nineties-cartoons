@@ -1,14 +1,3 @@
 # nineties-cartoons
-- cartoons to vote up and down
-- comment on cartoons
-- toggle comments
-- cartoons have link to wiki
-- √ filter/search for cartoon
-- √ sort by highest, lowest, alphabetical
-- toggle login
-- login validation
-- display time of comment
-- add new cartoon
-- toggle add cartoon
-- users can favorite
-- animate
+
+http://nineties-cartoons.s3-website-us-west-2.amazonaws.com/about
