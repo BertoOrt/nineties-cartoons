@@ -1,5 +1,6 @@
-app.controller('cartoons', [ '$scope', function ($scope) {
-  $scope.cartoons = cartoons;
+app.controller('cartoons', [ '$scope', '$firebaseArray', function ($scope, $firebaseArray) {
+  var cartoonsRef = new Firebase("https://nineties-cartoons.firebaseio.com/");
+  $scope.cartoons = $firebaseArray(cartoonsRef);
   $scope.reverse = true;
   $scope.sort = 'score';
   $scope.cartoonFormShow = false;
@@ -9,26 +10,29 @@ app.controller('cartoons', [ '$scope', function ($scope) {
   }
   $scope.downScore = function () {
     this.cartoon.score--;
+    $scope.cartoons.$save(this.cartoon);
   }
   $scope.upScore = function () {
     this.cartoon.score++;
+    $scope.cartoons.$save(this.cartoon);
   }
   $scope.show = function (type) {
     if (this.cartoon[type]) {
       this.cartoon.form = false;
       this.cartoon.comment = false;
       this.cartoon[type] = false;
+      $scope.cartoons.$save(this.cartoon);
     } else {
       this.cartoon.form = false;
       this.cartoon.comment = false;
       this.cartoon[type] = true;
+      $scope.cartoons.$save(this.cartoon);
     }
   }
   $scope.post = function (comment) {
+    this.cartoon.comments = [];
     this.cartoon.comments.push({text: comment, author:'You'})
-  }
-  $scope.submitForm = function (info) {
-    console.log(info);
+    $scope.cartoons.$save(this.cartoon);
   }
   $scope.formShow = function () {
     if ($scope.cartoonFormShow) {
@@ -38,7 +42,7 @@ app.controller('cartoons', [ '$scope', function ($scope) {
     }
   }
   $scope.submitCartoon = function () {
-    $scope.cartoons.push({name: $scope.title, image: $scope.url, score: 10, comments: [], author: "You", description: $scope.description})
+    $scope.cartoons.$add({name: $scope.title, image: $scope.url, score: 0, comments: '', author: "You", description: $scope.description})
   };
   $scope.clearForm = function (form) {
     $scope.title = null;

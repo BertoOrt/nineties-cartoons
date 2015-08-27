@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngAnimate', 'ngRoute']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'firebase']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
