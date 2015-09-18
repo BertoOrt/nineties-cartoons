@@ -3,13 +3,13 @@
   animation: 0.3s bounceInRight;
 }
 .cartoons.ng-leave {
-  animation: 0.3s fadeOut;
+  animation: 0.3s rotateOut;
 }
 
 .ng-hide-add:not(.arrow) {
-  animation:0.1s fadeOut ease;
+  animation:0.1s fadeOut;
 }
 
 .ng-hide-remove {
-  animation:0.2s fadeIn ease;
+  animation:0.2s fadeIn;
 }

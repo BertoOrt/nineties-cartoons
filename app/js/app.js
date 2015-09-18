@@ -25,3 +25,12 @@ app.config(function($routeProvider, $locationProvider) {
       .otherwise({redirectTo: '/'});
       $locationProvider.html5Mode(true);
 });
+
+function palindrome(word) {
+  var newWord = word.split('').reverse().join('');
+  if (word === newWord) {
+    return true
+  } else {
+    return false
+  }
+}
